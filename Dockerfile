@@ -8,8 +8,10 @@ COPY index.html style.css game.js ./
 
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD wget -qO- http://localhost:3000/ >/dev/null 2>&1 || exit 1
+# Healthcheck uses Python's stdlib (urllib) against 127.0.0.1 — the busybox
+# `wget` healthcheck was unreliable under Swarm and SIGKILLed the container.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s \
+  CMD ["python3", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:3000/',timeout=3).status==200 else 1)"]
 
-# Serve the current directory on port 3000.
-CMD ["python3", "-m", "http.server", "3000"]
+# Serve the current directory on all interfaces, port 3000.
+CMD ["python3", "-m", "http.server", "3000", "--bind", "0.0.0.0"]
