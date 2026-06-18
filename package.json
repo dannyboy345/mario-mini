@@ -1,0 +1,22 @@
+{
+  "name": "pixel-dash",
+  "version": "1.0.0",
+  "description": "A polished, original one-page browser platformer (canvas + vanilla JS, no framework).",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 3000",
+    "serve": "python3 -m http.server 3000",
+    "build": "echo \"No build step — static HTML/CSS/JS, ready to serve.\"",
+    "test": "node test/smoke.js",
+    "docker:build": "docker build -t pixel-dash .",
+    "docker:run": "docker run --rm -p 3000:3000 pixel-dash"
+  },
+  "keywords": [
+    "game",
+    "platformer",
+    "canvas",
+    "vanilla-js",
+    "no-framework"
+  ]
+}

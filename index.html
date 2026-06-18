@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#5c94fc">
+<title>Pixel Dash — A Platform Adventure</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23ff5a4d'/></svg>">
+</head>
+<body>
+<div id="game-shell">
+  <div id="hud">
+    <div class="hud-item"><span class="hud-label">SCORE</span><span id="score">0</span></div>
+    <div class="hud-item"><span class="hud-label">COINS</span><span id="coins">0</span></div>
+    <div class="hud-item"><span class="hud-label">LIVES</span><span id="lives">3</span></div>
+    <div class="hud-item"><span class="hud-label">TIME</span><span id="time">200</span></div>
+  </div>
+
+  <div id="stage">
+    <canvas id="game"></canvas>
+
+    <!-- Overlays -->
+    <div id="overlay" class="overlay">
+      <div class="panel">
+        <h1 class="title">PIXEL&nbsp;DASH</h1>
+        <p class="subtitle">A retro platform adventure</p>
+        <div class="how-to">
+          <p><b>Run:</b> ← → / A D &nbsp;•&nbsp; <b>Jump:</b> ↑ / W / Space</p>
+          <p>Grab coins, stomp foes, reach the flag before time runs out.</p>
+        </div>
+        <button id="start-btn" class="btn">START</button>
+        <p class="hint">Tip: bounce on enemies' heads to defeat them.</p>
+      </div>
+    </div>
+
+    <div id="gameover" class="overlay hidden">
+      <div class="panel">
+        <h1 class="title lose">GAME&nbsp;OVER</h1>
+        <p class="subtitle">Final score: <span id="go-score">0</span></p>
+        <button id="retry-btn" class="btn">TRY AGAIN</button>
+      </div>
+    </div>
+
+    <div id="win" class="overlay hidden">
+      <div class="panel">
+        <h1 class="title win">YOU&nbsp;WIN!</h1>
+        <p class="subtitle">Final score: <span id="win-score">0</span></p>
+        <p class="hint" id="win-bonus"></p>
+        <button id="next-btn" class="btn">PLAY AGAIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Touch controls -->
+  <div id="touch-controls" aria-hidden="true">
+    <div class="pad-left">
+      <button class="tbtn" data-key="left">◀</button>
+      <button class="tbtn" data-key="right">▶</button>
+    </div>
+    <div class="pad-right">
+      <button class="tbtn jump" data-key="jump">JUMP</button>
+    </div>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

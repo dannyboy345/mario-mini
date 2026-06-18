@@ -1,0 +1,152 @@
+/* Pixel Dash — styling. Pixel-art look via CSS + canvas only. */
+:root {
+  --sky: #5c94fc;
+  --ink: #1a1c2c;
+  --panel: #2b2f44;
+  --accent: #ffce4a;
+  --accent-2: #ff5a4d;
+  --good: #46c83c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: #0d0f1a;
+  color: #fff;
+  font-family: "Courier New", monospace;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#game-shell {
+  height: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  max-width: 960px;
+  margin: 0 auto;
+  background: #0d0f1a;
+}
+
+/* ---------- HUD ---------- */
+#hud {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 6px;
+  background: var(--ink);
+  border-bottom: 3px solid #000;
+  font-size: clamp(11px, 3.2vw, 18px);
+  letter-spacing: 1px;
+  flex: 0 0 auto;
+}
+.hud-item { display: flex; flex-direction: column; align-items: center; line-height: 1.2; }
+.hud-label { color: var(--accent); font-size: 0.7em; }
+#time { color: var(--accent-2); }
+
+/* ---------- Stage / canvas ---------- */
+#stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: var(--sky);
+  overflow: hidden;
+}
+#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ---------- Overlays ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 15, 26, 0.82);
+  z-index: 10;
+  text-align: center;
+  padding: 16px;
+}
+.overlay.hidden { display: none; }
+
+.panel {
+  background: var(--panel);
+  border: 4px solid #000;
+  box-shadow: 0 0 0 4px var(--accent), 8px 8px 0 rgba(0,0,0,0.5);
+  padding: clamp(18px, 5vw, 36px);
+  max-width: 420px;
+  width: 100%;
+}
+
+.title {
+  font-size: clamp(28px, 9vw, 52px);
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-shadow: 3px 3px 0 #000, -1px -1px 0 var(--accent-2);
+  margin-bottom: 8px;
+}
+.title.lose { color: var(--accent-2); }
+.title.win { color: var(--good); }
+
+.subtitle { font-size: clamp(13px, 4vw, 18px); margin-bottom: 16px; color: #dfe3ff; }
+.how-to { font-size: clamp(11px, 3.4vw, 15px); line-height: 1.7; margin-bottom: 18px; color: #cfd3f0; }
+.hint { font-size: clamp(10px, 3vw, 13px); margin-top: 14px; color: #9aa0c8; }
+
+.btn {
+  font-family: inherit;
+  font-weight: bold;
+  font-size: clamp(16px, 5vw, 22px);
+  letter-spacing: 2px;
+  color: #1a1c2c;
+  background: var(--accent);
+  border: 4px solid #000;
+  padding: 12px 28px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.05s, box-shadow 0.05s;
+}
+.btn:hover { background: #ffd968; }
+.btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #000; }
+
+/* ---------- Touch controls ---------- */
+#touch-controls {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: var(--ink);
+  border-top: 3px solid #000;
+  flex: 0 0 auto;
+}
+.pad-left { display: flex; gap: 12px; }
+.tbtn {
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  background: var(--panel);
+  border: 3px solid #000;
+  border-radius: 12px;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000;
+  touch-action: manipulation;
+}
+.tbtn.jump { width: 96px; background: var(--accent-2); }
+.tbtn:active { transform: translateY(3px); box-shadow: 0 1px 0 #000; }
+
+/* Show touch controls on coarse pointers (phones/tablets) */
+@media (pointer: coarse) {
+  #touch-controls { display: flex; }
+}
+/* Allow forcing controls via body class for testing */
+body.show-touch #touch-controls { display: flex; }
